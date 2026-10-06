@@ -1,0 +1,316 @@
+<div class="container">
+  <h1>🛍️ Product Management System</h1>
+
+  <div class="form-section">
+    <h2>{{ isEditMode ? '✏️ Edit Product' : '➕ Add New Product' }}</h2>
+
+    <form [formGroup]="productForm">
+      <div class="form-grid">
+        <!-- TEXT INPUT -->
+        <div class="form-group">
+          <label for="name">Product Name <span class="required">*</span></label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Enter product name (3-100 characters)"
+            [class.input-error]="isFieldInvalid('name')"
+          />
+          <div *ngIf="getControl('name')?.touched" class="error-messages">
+            <p *ngIf="hasError('name', 'required')">❌ Product name is required</p>
+            <p *ngIf="hasError('name', 'minlength')">❌ Minimum 3 characters required</p>
+            <p *ngIf="hasError('name', 'maxlength')">❌ Maximum 100 characters allowed</p>
+          </div>
+        </div>
+
+        <!-- TEXTAREA INPUT -->
+        <div class="form-group form-group-span2">
+          <label for="description">Description <span class="required">*</span></label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Detailed product description (10-500 characters)"
+            rows="4"
+            [class.input-error]="isFieldInvalid('description')"
+          ></textarea>
+          <div *ngIf="getControl('description')?.touched" class="error-messages">
+            <p *ngIf="hasError('description', 'required')">❌ Description is required</p>
+            <p *ngIf="hasError('description', 'minlength')">❌ Minimum 10 characters required</p>
+            <p *ngIf="hasError('description', 'maxlength')">❌ Maximum 500 characters allowed</p>
+          </div>
+        </div>
+
+        <!-- NUMBER INPUT - PRICE -->
+        <div class="form-group">
+          <label for="price">Price ($) <span class="required">*</span></label>
+          <input
+            type="number"
+            id="price"
+            formControlName="price"
+            placeholder="0.00"
+            step="0.01"
+            [class.input-error]="isFieldInvalid('price')"
+          />
+          <div *ngIf="getControl('price')?.touched" class="error-messages">
+            <p *ngIf="hasError('price', 'required')">❌ Price is required</p>
+            <p *ngIf="hasError('price', 'min')">❌ Price must be greater than 0</p>
+            <p *ngIf="hasError('price', 'max')">❌ Price cannot exceed $100,000</p>
+          </div>
+        </div>
+
+        <!-- NUMBER INPUT - QUANTITY -->
+        <div class="form-group">
+          <label for="quantity">Stock Quantity <span class="required">*</span></label>
+          <input
+            type="number"
+            id="quantity"
+            formControlName="quantity"
+            placeholder="0"
+            min="0"
+            [class.input-error]="isFieldInvalid('quantity')"
+          />
+          <div *ngIf="getControl('quantity')?.touched" class="error-messages">
+            <p *ngIf="hasError('quantity', 'required')">❌ Quantity is required</p>
+            <p *ngIf="hasError('quantity', 'min')">❌ Quantity cannot be negative</p>
+            <p *ngIf="hasError('quantity', 'max')">❌ Quantity cannot exceed 10,000</p>
+          </div>
+        </div>
+
+        <!-- SELECT DROPDOWN -->
+        <div class="form-group">
+          <label for="category">Category <span class="required">*</span></label>
+          <select
+            id="category"
+            formControlName="category"
+            [class.input-error]="isFieldInvalid('category')"
+          >
+            <option value="">-- Select Category --</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Sports">Sports & Outdoors</option>
+            <option value="Fashion">Fashion & Apparel</option>
+            <option value="Books">Books & Media</option>
+            <option value="Home">Home & Garden</option>
+          </select>
+          <div *ngIf="getControl('category')?.touched" class="error-messages">
+            <p *ngIf="hasError('category', 'required')">❌ Please select a category</p>
+          </div>
+        </div>
+
+        <!-- DATE INPUT -->
+        <div class="form-group">
+          <label for="launchDate">Launch Date <span class="required">*</span></label>
+          <input
+            type="date"
+            id="launchDate"
+            formControlName="launchDate"
+            [class.input-error]="isFieldInvalid('launchDate')"
+          />
+          <div *ngIf="getControl('launchDate')?.touched" class="error-messages">
+            <p *ngIf="hasError('launchDate', 'required')">❌ Launch date is required</p>
+          </div>
+        </div>
+
+        <!-- URL INPUT WITH VALIDATION -->
+        <div class="form-group form-group-span2">
+          <label for="imageUrl">Image URL <span class="required">*</span></label>
+          <input
+            type="url"
+            id="imageUrl"
+            formControlName="imageUrl"
+            placeholder="https://example.com/image.jpg (jpg, png, gif, webp)"
+            [class.input-error]="isFieldInvalid('imageUrl')"
+          />
+          <div *ngIf="getControl('imageUrl')?.touched" class="error-messages">
+            <p *ngIf="hasError('imageUrl', 'required')">❌ Image URL is required</p>
+            <p *ngIf="hasError('imageUrl', 'pattern')">❌ Valid image URL (jpg, png, gif, webp) required</p>
+          </div>
+        </div>
+
+        <!-- RADIO BUTTONS -->
+        <div class="form-group">
+          <label>Product Rating <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="rating"
+                value="1"
+              />
+              ⭐ 1 Star
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="rating"
+                value="2"
+              />
+              ⭐⭐ 2 Stars
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="rating"
+                value="3"
+              />
+              ⭐⭐⭐ 3 Stars
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="rating"
+                value="4"
+              />
+              ⭐⭐⭐⭐ 4 Stars
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="rating"
+                value="5"
+              />
+              ⭐⭐⭐⭐⭐ 5 Stars
+            </label>
+          </div>
+        </div>
+
+        <!-- CHECKBOX 1 -->
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="isAvailable"
+            />
+            <span>Available for Purchase</span>
+          </label>
+        </div>
+
+        <!-- CHECKBOX 2 -->
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="isFeatured"
+            />
+            <span>Featured Product</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button
+          type="button"
+          *ngIf="!isEditMode"
+          (click)="addProduct()"
+          class="btn btn-add"
+          [disabled]="productForm.invalid"
+        >
+          ➕ Add Product
+        </button>
+
+        <button
+          type="button"
+          *ngIf="isEditMode"
+          (click)="updateProduct()"
+          class="btn btn-update"
+          [disabled]="productForm.invalid"
+        >
+          💾 Update Product
+        </button>
+
+        <button
+          type="button"
+          *ngIf="isEditMode"
+          (click)="cancelEdit()"
+          class="btn btn-cancel"
+        >
+          ❌ Cancel
+        </button>
+      </div>
+
+      <div class="form-status">
+        <p *ngIf="productForm.valid" class="status-valid">
+          ✅ Form is valid and ready to submit
+        </p>
+        <p *ngIf="productForm.invalid && productForm.touched" class="status-invalid">
+          ⚠️ Please fix the errors above to continue
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-section">
+    <h2>Product Inventory (Total: {{ products.length }})</h2>
+
+    <div class="statistics" *ngIf="products.length > 0">
+      <div class="stat-card">
+        <p class="stat-label">Total Inventory Value</p>
+        <p class="stat-value">${{ getTotalInventoryValue() | number : '1.2-2' }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Average Price</p>
+        <p class="stat-value">${{ getAveragePrice() | number : '1.2-2' }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Featured Products</p>
+        <p class="stat-value">{{ getFeaturedCount() }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="products.length === 0" class="empty-state">
+      <p>📦 No products in inventory. Add one to get started!</p>
+    </div>
+
+    <div *ngIf="products.length > 0" class="table-wrapper">
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Rating</th>
+            <th>Featured</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products" class="table-row">
+            <td class="id-cell">{{ product.id }}</td>
+            <td class="name-cell">{{ product.name }}</td>
+            <td>
+              <span class="category-badge">{{ product.category }}</span>
+            </td>
+            <td class="price-cell">${{ product.price | number : '1.2-2' }}</td>
+            <td class="qty-cell">{{ product.quantity }}</td>
+            <td>
+              <span class="badge" [ngClass]="{ 'badge-available': product.isAvailable, 'badge-unavailable': !product.isAvailable }">
+                {{ product.isAvailable ? '✅ Available' : '❌ Unavailable' }}
+              </span>
+            </td>
+            <td class="rating-cell">{{ product.rating }}⭐</td>
+            <td class="featured-cell">
+              {{ product.isFeatured ? '⭐ Featured' : '-' }}
+            </td>
+            <td class="action-buttons">
+              <button
+                (click)="editProduct(product.id)"
+                class="btn btn-edit"
+              >
+                ✏️
+              </button>
+              <button
+                (click)="deleteProduct(product.id)"
+                class="btn btn-delete"
+              >
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

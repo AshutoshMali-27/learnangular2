@@ -1,0 +1,50 @@
+<div>
+  <!-- Original Todo App -->
+  <!-- <div class="todo-container">
+    <h1>📝 My Todo App</h1>
+    <div class="input-section">
+      <input
+        [(ngModel)]="newTodoTitle"
+        placeholder="Enter a new todo..."
+        class="todo-input"
+      />
+      <button (click)="addTodo()" class="btn-add">Add Todo</button>
+    </div>
+    <div class="stats">
+      <p>
+        Total: {{ todos.length }} | Completed: {{ getCompletedCount() }} |
+        Pending: {{ todos.length - getCompletedCount() }}
+      </p>
+    </div>
+    <div class="todos-list">
+      <div *ngFor="let todo of todos" class="todo-item">
+        <input
+          type="checkbox"
+          [checked]="todo.completed"
+          (change)="toggleTodo(todo.id)"
+          class="checkbox"
+        />
+        <span
+          class="todo-title"
+          [class.completed]="todo.completed"
+          (click)="toggleTodo(todo.id)"
+        >
+          {{ todo.title }}
+        </span>
+        <button (click)="deleteTodo(todo.id)" class="btn-delete">🗑️</button>
+      </div>
+    </div>
+    <div *ngIf="todos.length === 0" class="empty-state">
+      <p>No todos yet! Add one to get started 🚀</p>
+    </div>
+  </div> -->
+
+  <!-- New Student Manager Component -->
+  <!-- <app-student-manager></app-student-manager> -->
+
+  <!-- Employee Manager Component with Reactive Forms -->
+  <app-employee-manager></app-employee-manager>
+
+  <!-- Product Manager Component with All Input Types -->
+  <app-product-manager></app-product-manager>
+</div>

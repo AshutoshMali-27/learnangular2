@@ -1,0 +1,205 @@
+<div class="container">
+  <h1>👔 Employee Management System (Reactive Forms)</h1>
+  <div class="form-section">
+    <h2>{{ isEditMode ? '✏️ Edit Employee' : '➕ Add New Employee' }}</h2>
+    <form [formGroup]="employeeForm">
+      <div class="form-group">
+        <label for="name">Name: <span class="required">*</span></label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter employee name (3-50 characters)"
+          [class.input-error]="isFieldInvalid('name')"
+        />
+        <div *ngIf="getControl('name')?.touched" class="error-messages">
+          <p *ngIf="hasError('name', 'required')" class="error-text">
+            ❌ Name is required
+          </p>
+          <p *ngIf="hasError('name', 'minlength')" class="error-text">
+            ❌ Name must be at least 3 characters
+          </p>
+          <p *ngIf="hasError('name', 'maxlength')" class="error-text">
+            ❌ Name cannot exceed 50 characters
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email: <span class="required">*</span></label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter valid email address"
+          [class.input-error]="isFieldInvalid('email')"
+        />
+        <div *ngIf="getControl('email')?.touched" class="error-messages">
+          <p *ngIf="hasError('email', 'required')" class="error-text">
+            ❌ Email is required
+          </p>
+          <p *ngIf="hasError('email', 'email')" class="error-text">
+            ❌ Please enter a valid email address (e.g., user@example.com)
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="salary">Salary ($): <span class="required">*</span></label>
+        <input
+          type="number"
+          id="salary"
+          formControlName="salary"
+          placeholder="Enter salary (15000 - 1000000)"
+          [class.input-error]="isFieldInvalid('salary')"
+        />
+        <div *ngIf="getControl('salary')?.touched" class="error-messages">
+          <p *ngIf="hasError('salary', 'required')" class="error-text">
+            ❌ Salary is required
+          </p>
+          <p *ngIf="hasError('salary', 'min')" class="error-text">
+            ❌ Salary must be at least $15,000
+          </p>
+          <p *ngIf="hasError('salary', 'max')" class="error-text">
+            ❌ Salary cannot exceed $1,000,000
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="department">Department: <span class="required">*</span></label>
+        <select
+          id="department"
+          formControlName="department"
+          [class.input-error]="isFieldInvalid('department')"
+        >
+          <option value="">-- Select Department --</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Sales">Sales</option>
+          <option value="HR">HR</option>
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+        <div *ngIf="getControl('department')?.touched" class="error-messages">
+          <p *ngIf="hasError('department', 'required')" class="error-text">
+            ❌ Department is required
+          </p>
+        </div>
+      </div>
+
+      <!-- JOINING DATE FIELD -->
+      <div class="form-group">
+        <label for="joiningDate">Joining Date: <span class="required">*</span></label>
+        <input
+          type="date"
+          id="joiningDate"
+          formControlName="joiningDate"
+          [class.input-error]="isFieldInvalid('joiningDate')"
+        />
+        <div *ngIf="getControl('joiningDate')?.touched" class="error-messages">
+          <p *ngIf="hasError('joiningDate', 'required')" class="error-text">
+            ❌ Joining date is required
+          </p>
+        </div>
+      </div>
+      <div class="button-group">
+        <button
+          type="button"
+          *ngIf="!isEditMode"
+          (click)="addEmployee()"
+          class="btn btn-add"
+          [disabled]="employeeForm.invalid"
+        >
+          ➕ Add Employee
+        </button>
+        <button
+          type="button"
+          *ngIf="isEditMode"
+          (click)="updateEmployee()"
+          class="btn btn-update"
+          [disabled]="employeeForm.invalid"
+        >
+          💾 Update Employee
+        </button>
+        <button
+          type="button"
+          *ngIf="isEditMode"
+          (click)="cancelEdit()"
+          class="btn btn-cancel"
+        >
+          ❌ Cancel
+        </button>
+      </div>
+      <div class="form-status">
+        <p *ngIf="employeeForm.valid" class="status-valid">
+          ✅ Form is valid and ready to submit
+        </p>
+        <p *ngIf="employeeForm.invalid && employeeForm.touched" class="status-invalid">
+          ⚠️ Please fix the errors above to continue
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="table-section">
+    <h2>Employee List (Total: {{ employees.length }})</h2>
+    <div class="statistics" *ngIf="employees.length > 0">
+      <div class="stat-card">
+        <p class="stat-label">Average Salary</p>
+        <p class="stat-value">${{ getAverageSalary() | number }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Highest Salary</p>
+        <p class="stat-value">${{ getHighestSalary() | number }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Total Employees</p>
+        <p class="stat-value">{{ employees.length }}</p>
+      </div>
+    </div>
+    <div *ngIf="employees.length === 0" class="empty-state">
+      <p>👥 No employees added yet. Add an employee to get started!</p>
+    </div>
+    <div *ngIf="employees.length > 0" class="table-wrapper">
+      <table class="employees-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Joining Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees" class="table-row">
+            <td class="id-cell">{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td class="email-cell">{{ employee.email }}</td>
+            <td>
+              <span class="department-badge">
+                {{ employee.department }}
+              </span>
+            </td>
+            <td class="salary-cell">${{ employee.salary | number }}</td>
+            <td>{{ employee.joiningDate }}</td>
+            <td class="action-buttons">
+              <button
+                (click)="editEmployee(employee.id)"
+                class="btn btn-edit"
+                title="Edit this employee"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                (click)="deleteEmployee(employee.id)"
+                class="btn btn-delete"
+                title="Delete this employee"
+              >
+                🗑️ Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

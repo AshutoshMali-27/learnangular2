@@ -1,0 +1,108 @@
+<div class="container">
+  <h1>Student Management System</h1>
+  <div class="form-section">
+    <h2>{{ isEditMode ? 'Edit Student' : 'Add New Student' }}</h2>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="newStudent.name"
+        placeholder="Enter student name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="newStudent.email"
+        placeholder="Enter student email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="grade">Grade:</label>
+      <input
+        type="number"
+        id="grade"
+        [(ngModel)]="newStudent.grade"
+        placeholder="Enter grade"
+        min="0"
+        max="100"
+      />
+    </div>
+    <div class="button-group">
+      <button
+        *ngIf="!isEditMode"
+        (click)="addStudent()"
+        class="btn btn-add"
+      >
+        ➕ Add Student
+      </button>
+
+      <button
+        *ngIf="isEditMode"
+        (click)="updateStudent()"
+        class="btn btn-update"
+      >
+        💾 Update Student
+      </button>
+
+      <button
+        *ngIf="isEditMode"
+        (click)="cancelEdit()"
+        class="btn btn-cancel"
+      >
+        ❌ Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h2>Student List (Total: {{ students.length }})</h2>
+    <div *ngIf="students.length === 0" class="empty-state">
+      <p>📚 No students added yet. Add a student to get started!</p>
+    </div>
+    <div *ngIf="students.length > 0" class="table-wrapper">
+      <table class="students-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Grade</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students" class="table-row">
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>
+              <span class="grade" [ngClass]="{ 'high-grade': student.grade >= 80, 'low-grade': student.grade < 80 }">
+                {{ student.grade }}
+              </span>
+            </td>
+            <td class="action-buttons">
+              <button
+                (click)="editStudent(student.id)"
+                class="btn btn-edit"
+                title="Edit this student"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                (click)="deleteStudent(student.id)"
+                class="btn btn-delete"
+                title="Delete this student"
+              >
+                🗑️ Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
