@@ -1,0 +1,30 @@
+<h1>signal works!</h1>
+
+<h1>hello {{name()}}</h1>
+
+<h1>count: {{count()}}</h1>
+<button (click)="increment()">+</button>
+<button (click)="decrement()">-</button>
+<button (click)="reset()">Reset</button>
+
+
+<h1>Price: {{price()}}</h1>
+<h1>Qty: {{qty()}} </h1>
+<h1>Total: {{total()}}</h1>
+<h2>{{isExpensive()?'Expensive':'Not Expensive'}}</h2>
+<button (click)="incrementqty()">+</button>
+<br>
+<input  #box />
+ <button (click)="add(box.value); box.value = ''">Add</button>
+  <ul>
+      @for (t of todo(); track t.id) {
+        <li (click)="toggle(t.id)" [style.text-decoration]="t.done ? 'line-through' : 'none'">
+          {{ t.title }}
+        </li>
+      }
+    </ul>
+
+     <p>{{ remaining() }} left</p>
+
+     <br>
+     <button (click)="updatecount()">{{count1()}}</button>

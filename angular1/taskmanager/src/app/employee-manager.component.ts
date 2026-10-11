@@ -19,7 +19,6 @@ interface Employee {
   standalone: true,
 })
 export class EmployeeManagerComponent implements OnInit {
-  // Array to store all employees
   employees: Employee[] = [];
   nextId = 1;
   employeeForm!: FormGroup;

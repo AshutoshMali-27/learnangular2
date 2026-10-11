@@ -1,0 +1,561 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * Colour themes. `data-theme` on <html> picks the brand palette (default: hdfc) and the
+ * `.dark` class picks the mode, so there are four combinations of the same tokens.
+ * --primary is the brand's main colour, --brand its accent, --hero-* the gradient
+ * behind the login panel and the page banners.
+ */
+:root {
+    --radius: 0.75rem;
+    --destructive: #d92d20;
+    --success: #12805c;
+    --warning: #b45309;
+
+    /* HDFC style: navy blue with a red accent */
+    --background: #f3f6fa;
+    --foreground: #0d2036;
+    --card: #ffffff;
+    --card-foreground: #0d2036;
+    --popover: #ffffff;
+    --popover-foreground: #0d2036;
+    --primary: #004c8f;
+    --primary-foreground: #ffffff;
+    --secondary: #e4eef8;
+    --secondary-foreground: #003d73;
+    --muted: #ebf0f6;
+    --muted-foreground: #54657a;
+    --accent: #e4eef8;
+    --accent-foreground: #003d73;
+    --border: #d9e2ec;
+    --input: #c6d2df;
+    --ring: #2f7dc4;
+    --brand: #ed232a;
+    --brand-foreground: #ffffff;
+    --hero-from: #004c8f;
+    --hero-to: #002a52;
+    --chart-1: #004c8f;
+    --chart-2: #ed232a;
+    --chart-3: #2f7dc4;
+    --chart-4: #12805c;
+    --chart-5: #b45309;
+    --sidebar: #00376b;
+    --sidebar-foreground: #d5e3f2;
+    --sidebar-primary: #ed232a;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: rgb(255 255 255 / 0.1);
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: rgb(255 255 255 / 0.12);
+    --sidebar-ring: #7fb6e8;
+}
+
+/* SBI style: deep indigo-blue with a cyan accent */
+[data-theme='sbi'] {
+    --background: #f4f5fb;
+    --foreground: #17123a;
+    --card: #ffffff;
+    --card-foreground: #17123a;
+    --popover: #ffffff;
+    --popover-foreground: #17123a;
+    --primary: #2b1a8a;
+    --primary-foreground: #ffffff;
+    --secondary: #e9e8fa;
+    --secondary-foreground: #2b1a8a;
+    --muted: #edeef7;
+    --muted-foreground: #5d5c7c;
+    --accent: #e3f5fd;
+    --accent-foreground: #0b5f85;
+    --border: #dddef0;
+    --input: #c9cbe3;
+    --ring: #00a3d9;
+    --brand: #00b5ef;
+    --brand-foreground: #06283a;
+    --hero-from: #3a25a8;
+    --hero-to: #1c0c5c;
+    --chart-1: #2b1a8a;
+    --chart-2: #00b5ef;
+    --chart-3: #6b5bd6;
+    --sidebar: #22106e;
+    --sidebar-foreground: #dcd8f5;
+    --sidebar-primary: #00b5ef;
+    --sidebar-primary-foreground: #06283a;
+    --sidebar-ring: #7fdcf9;
+}
+
+/* ICICI style: burnt orange with a maroon sidebar */
+[data-theme='icici'] {
+    --background: #faf6f3;
+    --foreground: #2a1710;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary: #b23a12;
+    --primary-foreground: #ffffff;
+    --secondary: #fbe9df;
+    --secondary-foreground: #8a2c0d;
+    --muted: #f3ebe6;
+    --muted-foreground: #75605a;
+    --border: #ead9d0;
+    --input: #dcc6ba;
+    --ring: #e0703a;
+    --brand: #c94f0a;
+    --brand-foreground: #ffffff;
+    --hero-from: #b8431a;
+    --hero-to: #5c1c0f;
+    --sidebar: #5a1d10;
+    --sidebar-foreground: #f0dcd2;
+    --sidebar-primary: #ff9a52;
+    --sidebar-primary-foreground: #2b1203;
+    --card-foreground: #2a1710;
+    --popover-foreground: #2a1710;
+    --accent: #fbe9df;
+    --accent-foreground: #8a2c0d;
+    --sidebar-ring: #e0703a;
+    --chart-1: #b23a12;
+    --chart-2: #c94f0a;
+}
+
+/* Axis style: burgundy with a pink accent */
+[data-theme='axis'] {
+    --background: #faf5f7;
+    --foreground: #2b0f1c;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary: #97144d;
+    --primary-foreground: #ffffff;
+    --secondary: #f8e3ec;
+    --secondary-foreground: #7a0f3e;
+    --muted: #f3e9ee;
+    --muted-foreground: #735866;
+    --border: #ead6df;
+    --input: #dcc0cd;
+    --ring: #c9457c;
+    --brand: #e01060;
+    --brand-foreground: #ffffff;
+    --hero-from: #a31855;
+    --hero-to: #4f0a28;
+    --sidebar: #5c0c2f;
+    --sidebar-foreground: #f0d5e1;
+    --sidebar-primary: #ff5c97;
+    --sidebar-primary-foreground: #33061a;
+    --card-foreground: #2b0f1c;
+    --popover-foreground: #2b0f1c;
+    --accent: #f8e3ec;
+    --accent-foreground: #7a0f3e;
+    --sidebar-ring: #c9457c;
+    --chart-1: #97144d;
+    --chart-2: #e01060;
+}
+
+/* Kotak style: red with a navy sidebar */
+[data-theme='kotak'] {
+    --background: #faf5f5;
+    --foreground: #1c1626;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary: #c8141b;
+    --primary-foreground: #ffffff;
+    --secondary: #fbe4e5;
+    --secondary-foreground: #9c0f15;
+    --muted: #f2ebed;
+    --muted-foreground: #6b5d66;
+    --border: #e8d9db;
+    --input: #d9c5c8;
+    --ring: #e0555b;
+    --brand: #003874;
+    --brand-foreground: #ffffff;
+    --hero-from: #c8141b;
+    --hero-to: #6e0a0f;
+    --sidebar: #062a55;
+    --sidebar-foreground: #d5e0ee;
+    --sidebar-primary: #ff4d54;
+    --sidebar-primary-foreground: #ffffff;
+    --card-foreground: #1c1626;
+    --popover-foreground: #1c1626;
+    --accent: #fbe4e5;
+    --accent-foreground: #9c0f15;
+    --sidebar-ring: #e0555b;
+    --chart-1: #c8141b;
+    --chart-2: #003874;
+}
+
+/* Emerald: deep green with a gold accent */
+[data-theme='emerald'] {
+    --background: #f3f8f6;
+    --foreground: #0d2a21;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary: #0b6b4f;
+    --primary-foreground: #ffffff;
+    --secondary: #dff2ea;
+    --secondary-foreground: #08533d;
+    --muted: #e8f1ed;
+    --muted-foreground: #527067;
+    --border: #d3e4dc;
+    --input: #bdd4ca;
+    --ring: #2f9c7a;
+    --brand: #9a6700;
+    --brand-foreground: #ffffff;
+    --hero-from: #0d7a5a;
+    --hero-to: #053b2c;
+    --sidebar: #064434;
+    --sidebar-foreground: #d2ebe1;
+    --sidebar-primary: #f2c14e;
+    --sidebar-primary-foreground: #2b1d02;
+    --card-foreground: #0d2a21;
+    --popover-foreground: #0d2a21;
+    --accent: #dff2ea;
+    --accent-foreground: #08533d;
+    --sidebar-ring: #2f9c7a;
+    --chart-1: #0b6b4f;
+    --chart-2: #9a6700;
+}
+
+/* Graphite: charcoal with a teal accent */
+[data-theme='graphite'] {
+    --background: #f4f5f7;
+    --foreground: #141a24;
+    --card: #ffffff;
+    --popover: #ffffff;
+    --primary: #1f2a3a;
+    --primary-foreground: #ffffff;
+    --secondary: #e6e9ee;
+    --secondary-foreground: #1f2a3a;
+    --muted: #eceef2;
+    --muted-foreground: #596372;
+    --border: #dcdfe5;
+    --input: #c7ccd5;
+    --ring: #5b6b82;
+    --brand: #0b7d73;
+    --brand-foreground: #ffffff;
+    --hero-from: #2b3a4f;
+    --hero-to: #111823;
+    --sidebar: #161d29;
+    --sidebar-foreground: #d3d9e2;
+    --sidebar-primary: #2dd4bf;
+    --sidebar-primary-foreground: #042521;
+    --card-foreground: #141a24;
+    --popover-foreground: #141a24;
+    --accent: #e6e9ee;
+    --accent-foreground: #1f2a3a;
+    --sidebar-ring: #5b6b82;
+    --chart-1: #1f2a3a;
+    --chart-2: #0b7d73;
+}
+
+.dark {
+    --destructive: #ff6b5e;
+    --success: #3ecf9a;
+    --warning: #f5b453;
+
+    --background: #08121f;
+    --foreground: #e6eef7;
+    --card: #0f1d2e;
+    --card-foreground: #e6eef7;
+    --popover: #13243a;
+    --popover-foreground: #e6eef7;
+    --primary: #5aa9ee;
+    --primary-foreground: #04182b;
+    --secondary: #182c45;
+    --secondary-foreground: #cfe3f7;
+    --muted: #15263a;
+    --muted-foreground: #93a6bc;
+    --accent: #182c45;
+    --accent-foreground: #e6eef7;
+    --border: rgb(148 180 214 / 0.16);
+    --input: rgb(148 180 214 / 0.26);
+    --ring: #5aa9ee;
+    --brand: #ff5a60;
+    --brand-foreground: #2b0507;
+    --hero-from: #0a4f8f;
+    --hero-to: #062444;
+    --chart-1: #5aa9ee;
+    --chart-2: #ff5a60;
+    --chart-3: #8cc4f5;
+    --chart-4: #3ecf9a;
+    --chart-5: #f5b453;
+    --sidebar: #0a1727;
+    --sidebar-foreground: #c3d3e5;
+    --sidebar-primary: #ff5a60;
+    --sidebar-primary-foreground: #2b0507;
+    --sidebar-accent: rgb(255 255 255 / 0.08);
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: rgb(148 180 214 / 0.14);
+    --sidebar-ring: #5aa9ee;
+}
+
+.dark[data-theme='sbi'] {
+    --background: #0b0920;
+    --foreground: #eceafb;
+    --card: #141131;
+    --card-foreground: #eceafb;
+    --popover: #1a163f;
+    --popover-foreground: #eceafb;
+    --primary: #9d8cff;
+    --primary-foreground: #120a3a;
+    --secondary: #221d4f;
+    --secondary-foreground: #dcd7ff;
+    --muted: #1a1640;
+    --muted-foreground: #a09dc4;
+    --accent: #10304a;
+    --accent-foreground: #c8eeff;
+    --border: rgb(170 160 255 / 0.17);
+    --input: rgb(170 160 255 / 0.28);
+    --ring: #35c6f5;
+    --brand: #35c6f5;
+    --brand-foreground: #04222f;
+    --hero-from: #3b27a6;
+    --hero-to: #150a47;
+    --chart-1: #9d8cff;
+    --chart-2: #35c6f5;
+    --chart-3: #c3b9ff;
+    --sidebar: #0e0b29;
+    --sidebar-foreground: #cbc7ea;
+    --sidebar-primary: #35c6f5;
+    --sidebar-primary-foreground: #04222f;
+    --sidebar-border: rgb(170 160 255 / 0.15);
+    --sidebar-ring: #35c6f5;
+}
+
+.dark[data-theme='icici'] {
+    --background: #170d09;
+    --foreground: #f7ebe5;
+    --card: #23140e;
+    --popover: #2b1911;
+    --primary: #ff9255;
+    --primary-foreground: #2b1203;
+    --secondary: #3a2117;
+    --secondary-foreground: #ffd9c4;
+    --muted: #2c1a12;
+    --muted-foreground: #bda195;
+    --border: rgb(255 190 150 / 0.16);
+    --input: rgb(255 190 150 / 0.27);
+    --ring: #ff9255;
+    --brand: #ffb347;
+    --brand-foreground: #2b1a03;
+    --hero-from: #a13c16;
+    --hero-to: #3d130a;
+    --sidebar: #120a07;
+    --sidebar-foreground: #e0cdc4;
+    --sidebar-primary: #ffb347;
+    --sidebar-primary-foreground: #2b1a03;
+    --card-foreground: #f7ebe5;
+    --popover-foreground: #f7ebe5;
+    --accent: #3a2117;
+    --accent-foreground: #ffd9c4;
+    --sidebar-ring: #ff9255;
+    --chart-1: #ff9255;
+    --chart-2: #ffb347;
+}
+
+.dark[data-theme='axis'] {
+    --background: #160a10;
+    --foreground: #f8e9f0;
+    --card: #22101a;
+    --popover: #2b1521;
+    --primary: #ff7fb0;
+    --primary-foreground: #33061a;
+    --secondary: #3a1a2a;
+    --secondary-foreground: #ffd3e4;
+    --muted: #2b1420;
+    --muted-foreground: #bf9aab;
+    --border: rgb(255 150 195 / 0.16);
+    --input: rgb(255 150 195 / 0.27);
+    --ring: #ff7fb0;
+    --brand: #ff5c97;
+    --brand-foreground: #33061a;
+    --hero-from: #8f1549;
+    --hero-to: #35061b;
+    --sidebar: #110810;
+    --sidebar-foreground: #e2c9d4;
+    --sidebar-primary: #ff5c97;
+    --sidebar-primary-foreground: #33061a;
+    --card-foreground: #f8e9f0;
+    --popover-foreground: #f8e9f0;
+    --accent: #3a1a2a;
+    --accent-foreground: #ffd3e4;
+    --sidebar-ring: #ff7fb0;
+    --chart-1: #ff7fb0;
+    --chart-2: #ff5c97;
+}
+
+.dark[data-theme='kotak'] {
+    --background: #120c12;
+    --foreground: #f6eaec;
+    --card: #1e1319;
+    --popover: #271922;
+    --primary: #ff7379;
+    --primary-foreground: #33060a;
+    --secondary: #35191e;
+    --secondary-foreground: #ffd4d6;
+    --muted: #281519;
+    --muted-foreground: #bb9da2;
+    --border: rgb(255 160 170 / 0.16);
+    --input: rgb(255 160 170 / 0.27);
+    --ring: #ff7379;
+    --brand: #6aa5ee;
+    --brand-foreground: #04182b;
+    --hero-from: #a01219;
+    --hero-to: #3a070b;
+    --sidebar: #0b1322;
+    --sidebar-foreground: #c9d5e6;
+    --sidebar-primary: #ff7379;
+    --sidebar-primary-foreground: #33060a;
+    --card-foreground: #f6eaec;
+    --popover-foreground: #f6eaec;
+    --accent: #35191e;
+    --accent-foreground: #ffd4d6;
+    --sidebar-ring: #ff7379;
+    --chart-1: #ff7379;
+    --chart-2: #6aa5ee;
+}
+
+.dark[data-theme='emerald'] {
+    --background: #07140f;
+    --foreground: #e4f4ed;
+    --card: #0e2019;
+    --popover: #132a21;
+    --primary: #4fd1a5;
+    --primary-foreground: #032118;
+    --secondary: #17342a;
+    --secondary-foreground: #c9f1e0;
+    --muted: #132a21;
+    --muted-foreground: #92b3a6;
+    --border: rgb(140 220 185 / 0.16);
+    --input: rgb(140 220 185 / 0.27);
+    --ring: #4fd1a5;
+    --brand: #f2c14e;
+    --brand-foreground: #2b1d02;
+    --hero-from: #0b6b4f;
+    --hero-to: #04281e;
+    --sidebar: #081711;
+    --sidebar-foreground: #c2dbd0;
+    --sidebar-primary: #f2c14e;
+    --sidebar-primary-foreground: #2b1d02;
+    --card-foreground: #e4f4ed;
+    --popover-foreground: #e4f4ed;
+    --accent: #17342a;
+    --accent-foreground: #c9f1e0;
+    --sidebar-ring: #4fd1a5;
+    --chart-1: #4fd1a5;
+    --chart-2: #f2c14e;
+}
+
+.dark[data-theme='graphite'] {
+    --background: #0b0e13;
+    --foreground: #e8ebf0;
+    --card: #141920;
+    --popover: #1a2029;
+    --primary: #a8b8cf;
+    --primary-foreground: #0e141d;
+    --secondary: #222a35;
+    --secondary-foreground: #dbe2ec;
+    --muted: #1a2029;
+    --muted-foreground: #98a2b1;
+    --border: rgb(180 195 215 / 0.15);
+    --input: rgb(180 195 215 / 0.26);
+    --ring: #a8b8cf;
+    --brand: #2dd4bf;
+    --brand-foreground: #042521;
+    --hero-from: #263447;
+    --hero-to: #0c1118;
+    --sidebar: #090c11;
+    --sidebar-foreground: #c5ccd6;
+    --sidebar-primary: #2dd4bf;
+    --sidebar-primary-foreground: #042521;
+    --card-foreground: #e8ebf0;
+    --popover-foreground: #e8ebf0;
+    --accent: #222a35;
+    --accent-foreground: #dbe2ec;
+    --sidebar-ring: #a8b8cf;
+    --chart-1: #a8b8cf;
+    --chart-2: #2dd4bf;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  html {
+    @apply font-sans;
+    color-scheme: light;
+    }
+  html.dark {
+    color-scheme: dark;
+    }
+  body {
+    @apply bg-background text-foreground antialiased;
+    }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 25%, transparent);
+    }
+}
+
+/* Brand gradient with a soft glow of the accent colour; text on it is always white. */
+@utility bg-hero {
+  background-image:
+    radial-gradient(60rem 22rem at 110% -20%, color-mix(in oklab, var(--brand) 38%, transparent), transparent 60%),
+    linear-gradient(135deg, var(--hero-from), var(--hero-to));
+  color: #ffffff;
+}
+
+/* The thin two-colour line along the top of the app. */
+@utility bg-brand-stripe {
+  background-image: linear-gradient(90deg, var(--primary) 0 62%, var(--brand) 62% 100%);
+}
+
+@utility scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, currentColor 30%, transparent) transparent;
+}

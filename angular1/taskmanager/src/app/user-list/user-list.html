@@ -1,0 +1,12 @@
+<p>user-list works!</p>
+<h2>Users</h2>
+
+   @if (loading()) {
+      <p>Loading...</p>
+    } @else if (error()) {
+      <p style="color: red">{{ error() }}</p>
+    } @else {
+      @for (user of users(); track user.id) {
+        <p>{{ user.name }} — {{ user.email }}</p>
+      }
+    }

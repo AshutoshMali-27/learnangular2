@@ -1,0 +1,7 @@
+<p>comp-b works!</p>
+  <h3>Messages</h3>
+    @for (m of massageService.message(); track $index) {
+      <p>{{ m }}</p>
+    }
+
+<button (click)="massageService.clear()">Clear</button>

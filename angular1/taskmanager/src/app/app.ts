@@ -4,6 +4,13 @@ import { CommonModule } from '@angular/common';
 import { StudentManagerComponent } from './student-manager.component';
 import { EmployeeManagerComponent } from './employee-manager.component';
 import { ProductManagerComponent } from './product-manager.component';
+import { Signal } from './signal/signal';
+import { Usercard } from './usercard/usercard';
+import { Parent } from './parent/parent';
+import { Parentcounter } from './parentcounter/parentcounter';
+import { CompA } from './comp-a/comp-a';
+import { CompB } from './comp-b/comp-b';
+import { UserList } from './user-list/user-list';
 
 interface Todo {
   id: number;
@@ -15,7 +22,7 @@ interface Todo {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [FormsModule, CommonModule, StudentManagerComponent, EmployeeManagerComponent, ProductManagerComponent],
+  imports: [FormsModule, CommonModule, StudentManagerComponent, EmployeeManagerComponent, ProductManagerComponent,Signal,Usercard,Parent,Parentcounter,CompB,CompA,UserList],
 })
 export class App {
   todos: Todo[] = [];
